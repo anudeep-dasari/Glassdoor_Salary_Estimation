@@ -41,3 +41,14 @@ df['isheadquarters'] = df.apply(lambda x: 1 if x.Location == x.Headquarters else
 #Company age
 df['Company Age'] = df.apply(lambda x: 2021-x.Founded if x.Founded>0 else x.Founded, axis=1)
 
+# Extracting required skills from JD
+df['python_r'] = df['Job Description'].apply(lambda x: 1 if 'python' in x.lower() else 0)
+df['tableau_r'] = df['Job Description'].apply(lambda x: 1 if 'tableau' in x.lower() else 0)
+df['excel_r'] = df['Job Description'].apply(lambda x: 1 if 'excel' in x.lower() else 0)
+df['sql'] = df['Job Description'].apply(lambda x: 1 if 'sql' in x.lower() else 0)
+
+#create a new csv to store the cleaned data
+df.to_csv('cleaned_salary_data.csv',index=False)
+
+
+
