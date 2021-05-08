@@ -1,4 +1,4 @@
 # Data Scientist Salary Analysis
 
 ## Sources
-Dataset - https://github.com/picklesueat/data_jobs_data
+Dataset - https://www.kaggle.com/milan400/glassdoordata-scientist
