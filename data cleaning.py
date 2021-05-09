@@ -97,8 +97,24 @@ def seniority(title):
 df['Job_cat'] = df['Job Title'].apply(title_simplifier)
 df['Seniority'] = df['Job Title'].apply(seniority)
 
+
 #Length if Job Description
 df['dcrpn_len'] = df['Job Description'].apply(lambda x: len(x))
+
+
+#Average no of employees in the company
+df['Emp_no'] = df['Size'].str.replace(' employees','')
+df['Emp_no'] = df['Emp_no'].str.replace('Unknown','-1')
+df['Emp_no'] = df['Emp_no'].str.replace('+','')
+df['Emp_no'] = df['Emp_no'].str.split(' to ')
+
+for i in df.index:
+    if len(df.at[i,'Emp_no']) > 1:
+        df.at[i,'Emp_no'] = int((int(df.at[i,'Emp_no'][0])+int(df.at[i,'Emp_no'][1]))/2)
+    else:
+        df.at[i,'Emp_no'] = int(df.at[i,'Emp_no'][0])
+
+df['Emp_no'] = df['Emp_no'].astype(int)
 
 
 #create a new csv to store the cleaned data
