@@ -21,13 +21,12 @@ df['Salary'] = df['Salary'].str.replace('K','')
 df['Salary'] = df['Salary'].str.replace('Employer Provided Salary:','')
 
 df['hourly'] = df['Salary'].str.contains('Per Hour',regex=False).astype(int)
-df['Salary'] = df['Salary'].str.replace('Per Hour','')
 
+df['Salary'] = df['Salary'].str.replace('Per Hour','')
 df['Salary'] = df['Salary'].str.split('-')
 
 df['Minimum Salary'] = df['Salary'].str[0].astype(int)
 df['Maximum Salary'] = df['Salary'].str[1].astype(int)
-
 df['Average Salary'] = (df['Minimum Salary']+df['Maximum Salary'])/2
 
 
@@ -63,7 +62,11 @@ df['Company Age'] = df.apply(lambda x: 2021-x.Founded if x.Founded>0 else x.Foun
 df['python_r'] = df['Job Description'].apply(lambda x: 1 if 'python' in x.lower() else 0)
 df['tableau_r'] = df['Job Description'].apply(lambda x: 1 if 'tableau' in x.lower() else 0)
 df['excel_r'] = df['Job Description'].apply(lambda x: 1 if 'excel' in x.lower() else 0)
-df['sql'] = df['Job Description'].apply(lambda x: 1 if 'sql' in x.lower() else 0)
+df['sql_r'] = df['Job Description'].apply(lambda x: 1 if 'sql' in x.lower() else 0)
+df['powerbi_r'] = df['Job Description'].apply(lambda x: 1 if 'power bi' in x.lower() else 0)
+df['aws_r'] = df['Job Description'].apply(lambda x: 1 if 'aws' in x.lower() else 0)
+df['spark_r'] = df['Job Description'].apply(lambda x: 1 if 'spark' in x.lower() else 0)
+
 
 
 #modifying the Job titlle to catagorise the jobs to simpler ones
