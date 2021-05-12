@@ -33,10 +33,13 @@ sm_results.summary()
 # Using Scikit-learn
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_score
+from sklearn.metrics import mean_absolute_error
 lr = LinearRegression()
 lr.fit(X_train,y_train)
 cross_val_score(lr, X_train, y_train, scoring='neg_mean_absolute_error')
 lr_cvs = np.mean(cross_val_score(lr, X_train, y_train, scoring='neg_mean_absolute_error'))
+y_pred_lr = lr.predict(X_test)
+mean_absolute_error(y_test,y_pred_lr)
 
 # Lasso Regression
 from sklearn.linear_model import Lasso
@@ -45,8 +48,51 @@ cross_val_score(lasso,X_train, y_train, scoring='neg_mean_absolute_error')
 
 from sklearn.linear_model import LassoCV
 lassocv = LassoCV(alphas = np.arange(0.1,1,0.01))
+lassocv.fit(X_train,y_train)
 cross_val_score(lassocv,X_train, y_train, scoring='neg_mean_absolute_error')
 ls_cvs = np.mean(cross_val_score(lassocv,X_train, y_train, scoring='neg_mean_absolute_error'))
+y_pred_ls = lassocv.predict(X_test)
+mean_absolute_error(y_test,y_pred_ls)
 
 # Random forests
-# 
+from sklearn.ensemble import RandomForestRegressor
+rfr = RandomForestRegressor()
+rfr.fit(X_train, y_train)
+cross_val_score(rfr, X_train, y_train, scoring='neg_mean_absolute_error')
+rfr_cvs = np.mean(cross_val_score(rfr, X_train, y_train, scoring='neg_mean_absolute_error'))
+y_pred_rfr = rfr.predict(X_test)
+mean_absolute_error(y_test,y_pred_rfr)
+
+#GridsearchCV for Random forests
+from sklearn.model_selection import GridSearchCV
+param_grid = {
+    'bootstrap': [True],
+    'max_depth': [130,140,150],
+    'n_estimators': [100,200,300]
+}
+gs = GridSearchCV(rfr,param_grid, scoring = 'neg_mean_absolute_error',cv=3)
+gs.fit(X_train,y_train)
+gs.best_score_
+gs.best_estimator_
+y_pred_gs = gs.predict(X_test)
+mean_absolute_error(y_test,y_pred_gs)
+
+# Comparing different predictions
+print("MAE Linear Regression: "+str(mean_absolute_error(y_test,y_pred_lr)))
+print("MAE Lasso Regression: "+str(mean_absolute_error(y_test,y_pred_ls)))
+print("MAE Random forests: "+str(mean_absolute_error(y_test,y_pred_rfr)))
+print("MAE Random forest GridSearch :"+str(mean_absolute_error(y_test,y_pred_gs)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
