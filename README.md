@@ -8,4 +8,4 @@
 **Python Version:** 3.9   
 **Packages** - Pandas, numpy, matplotlib, seaborn, sklearn  
 **Dataset** - https://www.kaggle.com/milan400/glassdoordata-scientist  
-**Reference** - https://www.youtube.com/watch?v=MpF9HENQjDo&list=PL2zq7klxX5ASFejJj80ob9ZAnBHdz5O1t&ab_channel=KenJee  
+**Reference** - https://www.youtube.com/channel/UCiT9RITQ9PW6BhXK0y2jaeg
